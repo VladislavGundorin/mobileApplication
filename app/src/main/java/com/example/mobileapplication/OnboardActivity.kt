@@ -2,6 +2,7 @@ package com.example.mobileapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -21,12 +22,15 @@ import com.example.mobileapplication.ui.theme.buttonColors
 
 
 class OnboardActivity : ComponentActivity() {
+    private val tag = "OnboardActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(tag, "OnboardActivity created")
         setContent {
             MobileApplicationTheme {
                 OnboardScreen {
+                    Log.d(tag, "Start button clicked")
                     navigateToSignIn()
                 }
             }

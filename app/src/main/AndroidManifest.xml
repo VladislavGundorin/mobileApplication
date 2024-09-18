@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,6 +30,21 @@
             android:exported="true"
             android:label="Sign In"
             android:theme="@style/Theme.MobileApplication"/>
-    </application>
+        <activity
+            android:name=".CharacterActivity"
+            android:exported="true"
+            android:label="Character Details"
+            android:theme="@style/Theme.MobileApplication" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true"
+            android:label="Character Details"
+            android:theme="@style/Theme.MobileApplication" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true"
+            android:label="Character Details"
+            android:theme="@style/Theme.MobileApplication" />
 
+    </application>
 </manifest>

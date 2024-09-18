@@ -1,40 +1,36 @@
 package com.example.mobileapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.mobileapplication.ui.theme.MobileApplicationTheme
 
-class SignInActivity : ComponentActivity() {
-    private val tag = "SignInActivity"
+class RegisterActivity : ComponentActivity() {
+    private val tag = "RegisterActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(tag, "SignInActivity created")
         setContent {
             MobileApplicationTheme {
-                SignInScreen()
+                RegisterScreen()
             }
         }
+        Log.d(tag, "RegisterActivity created")
     }
 }
 
 @Composable
-fun SignInScreen() {
+fun RegisterScreen() {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val context = LocalContext.current
+    var confirmPassword by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -46,8 +42,8 @@ fun SignInScreen() {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it
-                Log.d("SignInScreen", "Email entered: $email")},
-
+                Log.d("RegisterScreen", "Email entered: $email")
+                            },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -58,9 +54,22 @@ fun SignInScreen() {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it
-                Log.d("SignInScreen", "Password entered: $password")
+                Log.d("RegisterScreen", "Password entered: $password")
                             },
             label = { Text("Пароль") },
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = confirmPassword,
+            onValueChange = { confirmPassword = it
+                Log.d("RegisterScreen", "Confirm Password entered: $confirmPassword")
+                            },
+            label = { Text("Подтвердите пароль") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -70,32 +79,14 @@ fun SignInScreen() {
 
         Button(
             onClick = {
-                Log.d("SignInScreen", "Sign In button clicked")
-                if (email == "test" && password == "test") {
-                    Toast.makeText(context, "Вход успешен", Toast.LENGTH_SHORT).show()
-
-                    val intent = Intent(context, HomeActivity::class.java)
-                    context.startActivity(intent)
+                Log.d("RegisterScreen", "Register button clicked")
+                if (password == confirmPassword) {
                 } else {
-                    Toast.makeText(context, "Неверный email или пароль", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Войти")
+            Text("Зарегистрироваться")
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "Зарегистрироваться",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.clickable {
-                Log.d("SignInScreen", "Register button clicked")
-                val intent = Intent(context, RegisterActivity::class.java)
-                context.startActivity(intent)
-            }
-        )
     }
 }
